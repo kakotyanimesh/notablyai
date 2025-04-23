@@ -23,3 +23,9 @@ export const signupObject = z.object({
                 .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
     username  : z.string().max(20, {message : "Username length should be within 20"}) 
 })
+
+
+export const notesObject = z.object({
+    userId : z.string(),
+    data : z.string(),
+})
