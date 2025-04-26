@@ -58,3 +58,30 @@ export const deleteNotes = async ({id, userId} : {
         return errorHandler(error)
     }
 }
+
+export const getNotes = async ({id} : {id : number}) => {
+    try {
+
+        if(!id){
+            throw {errorInfo : "No notes id provided !! "}
+        }
+        const client = await createClient()
+
+        const {data : {user}} = await client.auth.getUser()
+
+        if(!user){
+            throw {errorInfo : "signin no user found"}
+        }
+
+        const note = await prisma.notes.findUnique({
+            where : {
+                id : id,
+                userId : user.id as string
+            }
+        })
+
+        return note
+    } catch (error) {
+        return errorHandler(error)
+    }
+}
