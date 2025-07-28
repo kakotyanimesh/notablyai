@@ -27,7 +27,7 @@ export default async function RootLayout({children} : {
                     <Profile email={user?.email as string}/>
                     {/* <LogoutButton/>  */}
                 </div>
-            <div className="md:pt-36 pt-25 mx-5">
+            <div className="md:pt-36 pt-42 mx-5">
                 {children}
             </div>
         </div>

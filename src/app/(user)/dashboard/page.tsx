@@ -36,7 +36,7 @@ export default async function Dashboard(){
                 {/* <SearchBar/> */}
                 <InputBox variant={"default"} className="md:w-[500px] w-[300px] md:h-14 h-10" label="" placeholder="search..." />
             </div>
-            <div className="grid grid-cols-3 gap-x-5 gap-y-6 mx-32">
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-x-5 gap-y-6 mx-32">
                 {
                     notes.map((n, key) => {
                         return <Link href={`/preview/${n.id}`} key={key}>
