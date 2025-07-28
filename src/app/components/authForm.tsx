@@ -3,7 +3,6 @@ import { useTransition } from "react"
 import { InputBox } from "./ui/inputbox"
 import { Button } from "./ui/button"
 import { Loader2 } from "lucide-react"
-import Link from "next/link"
 import { logInUser, signupUser } from "../actions/user"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
@@ -61,14 +60,7 @@ export default function AuthForm({authTypes} : AuthType ) {
                         isPending ? <Loader2 className="animate-spin"/> : formType ?"signup" : "login"
                     }
                 </Button>
-                {
-                   !formType && <Button variant={"primary"} className=" flex justify-self-center w-full">
-                    Sign In with Google
-                   </Button> 
-                }
-                {
-                    formType ? <p className="">Already have an account ? <Link className="text-purple-900" href={"/signin"}>Signin </Link></p> : <p>Don't have an account ? <Link className="text-purple-900" href={"/signup"}>Sign up </Link></p>
-                }
+                
             </form>
         </div>
     )
