@@ -1,81 +1,44 @@
-"use client"
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog"
-import { Button } from "./ui/button"
+"use client";
 
-import { Fragment, useRef, useState, useTransition } from "react"
-import { TextArea } from "./ui/textArea"
-import { Send } from "lucide-react"
-import { toast } from "sonner"
-import { summaryAI } from "../actions/ai"
+import { useState, useTransition } from "react";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
+import { summaryAI } from "../actions/ai";
+import { useRouter } from "next/navigation";
 
-export default function ChatBox({id} : {id : number}) {
-    const [questionInput, setquestionInput] = useState<string>("")
-    const [questionsArray, setquestionsArray] = useState<string[]>([])    
-    const [airesponses, setAiresponses] = useState<string[]>([])
-    const [isThinking, setIsThinking] = useState(true)
+export const AIsummary = ({ notes }: { notes: string }) => {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter()
+  const [summarytext, setSummarytext] = useState<string | null | undefined>(
+    null,
+  );
 
+  const getSummary = () => {
+    startTransition(async () => {
+      try {
+        const res = await summaryAI({ noteText: notes });
 
-
-    const [isPending, startTransition] =  useTransition()
-
-    const handleSubmit = async () => {
         
-        if(!questionInput.trim()){
-            toast.error("empty questions filled ")
-            return
+
+        if (!res) {
+          toast.error("Error Please try again later");
         }
 
-        setIsThinking(!isThinking)
-        setquestionsArray([questionInput])
-        
-        setquestionInput("")
+        setSummarytext(res?.toString());
 
-        // const res = await 
-        startTransition(async() => {
-            // await summaryAI()
-        })
-    }
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="primary">Chat with AI</Button>
-            </DialogTrigger>
-            <DialogContent className="w-full bg-white  flex h-[85vh] max-w-4xl flex-col overflow-y-auto ">
-              <DialogHeader>
-                <DialogTitle>Ask AI About Your Notes</DialogTitle>
-                <DialogDescription>
-                    Out AI can answer questions about all of your notes
-                </DialogDescription>
-              </DialogHeader>
-              
-              <div className="border-1 border-[hsl(var(--primary))] rounded-tr-2xl rounded-bl-2xl h-full">
-                {questionsArray.map((q, index) => (
-                    <Fragment key={index}>
-                        <p>
-                            {q}
-                        </p>
-                        {
-                            airesponses[index] && (
-                                <p dangerouslySetInnerHTML={{__html : airesponses[index]}}/>
-                            )
-                        }
-                    </Fragment>
-                ))}
-                {isThinking && <h1 className="p-3 animate-pulse text-sm">Thinking ......</h1>}
-              </div> 
-              <div  className="flex gap-7 items-center">
-                <TextArea value={questionInput} onChange={(e) => setquestionInput(e.target.value)}  className="w-96" label="" sizes={"chatBox"} disabled={isPending}/>
-                <Button disabled={isPending} onClick={handleSubmit} className="px-3 py-2 bg-purple-200 " variant={"secondary"}><Send className="text-purple-500"/> </Button>
-              </div>
-            </DialogContent>
-    </Dialog>
-
-    )
-}
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (error) {
+        toast.error("errpr");
+      }
+    });
+  };
+  return (
+    <div className="w-96 space-y-5">
+      <Button className="h-6 w-2 px-5 absolute top-26 left-5" onClick={() => router.back()}>🔙</Button>
+      <Button className="w-full" variant={"primary"} disabled={isPending} onClick={getSummary}>
+        {isPending ? <span className="animate-spin">⟳</span> : "GET STARTED"}
+      </Button>
+      <div className="py-5 px-7 prose max-w-none whitespace-pre-wrap h-fit overflow-y-auto bg-pink-400 rounded-2xl p-4" dangerouslySetInnerHTML={{ __html: summarytext ?? "" }} />
+    </div>
+  );
+};

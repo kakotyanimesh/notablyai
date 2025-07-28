@@ -8,7 +8,7 @@ export const buttonVariants = cva(
     {
       variants : {
         variant : {
-            primary : "transition-all ease-linear bg-violet-800 text-white  md:rounded-br-2xl md:hover:rounded-br-xl md:hover:rounded-bl-xl rounded-br-xl md:rounded-tl-2xl hover:rounded-tl-xl md:hover:rounded-tr-xl rounded-tl-xl",
+            primary : "transition-all ease-linear bg-violet-800 text-white rounded-2xl",
             secondary : "border border-violet-900 text-black hover:bg-slate-200 hover:text-purple-900 md:rounded-tr-2xl md:hover:rounded-tr-xl hover:rounded-tl-xl rounded-tr-xl md:rounded-bl-2xl md:hover:rounded-bl-xl hover:rounded-br-xl transition-all ease-linear rounded-bl-xl",
             loading : "",
             musicButton : "border border-slate-600 text-slate-50 bg-gradient-to-tr from-slate-700 to-zink-900 hover:text-pink-500 hover:text-pink-500 md:rounded-tr-2xl md:hover:rounded-tr-xl hover:rounded-tl-xl rounded-tr-xl md:rounded-bl-2xl md:hover:rounded-bl-xl hover:rounded-br-xl transition-all ease-linear rounded-bl-xl",

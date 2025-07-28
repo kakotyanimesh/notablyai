@@ -2,7 +2,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { authenticatedRoutes, publicRoutes, REDIRECT_URL } from './lib/route_middleware'
-// import { createClient } from './auth/server'
 
 export async function middleware(request: NextRequest) {
   return await updateSession(request)

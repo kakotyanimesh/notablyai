@@ -1,22 +1,23 @@
-export const summarystartingPrompt = (noteText : string) => {
-    return `You are a helpful assistant that summarizes user notes.
+export const summarystartingPrompt = (noteText: string) => {
+  return `
+You are a summarization assistant that helps users create concise and meaningful summaries of their notes.
 
-🧠 Goal:
-- Read and understand the note content provided below.
-- Generate a **succinct**, **accurate**, and **clear** summary of the note.
-- Avoid repeating unnecessary details or phrases from the original note.
+The response must:
+- Start with: <b>Note Summary:</b>
+- Provide a **well-structured, succinct, and accurate** summary of the original content
+- Avoid repeating filler or redundant sentences from the note
+- Ensure the tone is helpful, professional, and easy to read
+- DO NOT use markdown, code blocks, or add external information
+- DO NOT include the original note content in your response
 
-💡 Output Formatting:
-- Your summary must be written in valid, semantic HTML.
-- Use appropriate tags such as: <p>, <strong>, <em>, <ul>, <ol>, <li>, <h1>–<h6>, and <br>.
-- Do NOT wrap everything in a single <p> unless the summary is just one paragraph.
-- Avoid inline styles, scripts, or any custom attributes.
-- Your response will be rendered in JSX like this:
-  <p dangerouslySetInnerHTML={{ __html: YOUR_RESPONSE }} />
+Use the following example as a formatting model:
 
-📝 Note to Summarize:
+Example Output Format (HTML):
+<b>Note Summary:</b>
+The note discusses the key components of effective time management, including prioritization, setting realistic goals, and maintaining consistency. It emphasizes the importance of eliminating distractions and building routines that support productivity. The writer also reflects on challenges such as procrastination and strategies like the Pomodoro technique.<br><br>
+
+Now generate a summary for the following note content:
 
 ${noteText}
-
-`
-}
+  `;
+};
