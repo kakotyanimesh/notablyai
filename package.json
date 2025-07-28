@@ -8,6 +8,14 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "engines": {
+      "binaryTargets": [
+        "native",
+        "rhel-openssl-3.0.x"
+      ]
+    }
+  },
   "dependencies": {
     "@google/genai": "^0.10.0",
     "@prisma/client": "^6.6.0",
